@@ -59,3 +59,4 @@ print("Best Solution:", best_solution)
 # Calculate total cost
 total_cost = sum(edges[edge]["distance"] * COST_PER_DISTANCE for edge in edges if best_solution[edge] == 1)
 print("Total Cost:", total_cost)
+
