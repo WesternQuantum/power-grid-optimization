@@ -1,6 +1,7 @@
 from dimod import Binary, ConstrainedQuadraticModel, Integer
 from config import edges, COST_PER_DISTANCE, nodes
 from dwave.system import LeapHybridCQMSampler
+import dwave.inspector
 
 cqm = ConstrainedQuadraticModel()
 
@@ -20,7 +21,7 @@ for edge_name, edge_data in edges.items():
     power_flow_vars[edge_name] = power_flow
     
     # Add capacity constraint for each power line
-    cqm.add_constraint(line_active * power_flow <= edge_data["max_power"], label=f"capacity_{edge_name}")
+    # cqm.add_constraint(line_active * power_flow <= edge_data["max_power"], label=f"capacity_{edge_name}")
 
     # Add cost to the objective
     cost = edge_data["distance"] * COST_PER_DISTANCE
@@ -45,7 +46,7 @@ for node_name, node_data in nodes.items():
     net_flow_expr = sum(flow_in) - sum(flow_out)
 
     # Add the power balance constraint to the CQM
-    cqm.add_constraint(net_flow_expr == power_needed, label=f"power_balance_{node_name}")
+    # cqm.add_constraint(net_flow_expr == power_needed, label=f"power_balance_{node_name}")
 
 # Step 3: Solve the CQM
 sampler = LeapHybridCQMSampler()
