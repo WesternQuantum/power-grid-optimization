@@ -9,6 +9,11 @@ cqm = ConstrainedQuadraticModel()
 line_active_vars = {}
 power_flow_vars = {}
 
+# Cost of building power lines
+for edge_name, edge_data in edges.items():
+    cost = edge_data["distance"] * COST_PER_DISTANCE
+    cqm.set_objective(Binary(edge_name) * cost)
+
 # Define binary decision variables and power flow variables
 for edge_name, edge_data in edges.items():
     # Binary variable for whether the line is active
